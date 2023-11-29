@@ -8,25 +8,27 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+    "up": "taze major -I",
     "postinstall": "npx simple-git-hooks"
   },
   "dependencies": {
     "@unocss/reset": "^0.57.7",
     "pinia": "^2.1.7",
-    "vue": "^3.3.4",
+    "vue": "^3.3.9",
     "vue-router": "^4.2.5"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.1.1",
     "@unocss/eslint-config": "^0.57.7",
-    "@vitejs/plugin-vue": "^4.4.0",
-    "@vitejs/plugin-vue-jsx": "^3.0.2",
+    "@vitejs/plugin-vue": "^4.5.0",
+    "@vitejs/plugin-vue-jsx": "^3.1.0",
     "eslint": "^8.54.0",
     "lint-staged": "^15.1.0",
     "pnpm": "^8.11.0",
     "simple-git-hooks": "^2.9.0",
+    "taze": "^0.12.2",
     "unocss": "^0.57.7",
-    "vite": "^4.4.11"
+    "vite": "^5.0.3"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged"

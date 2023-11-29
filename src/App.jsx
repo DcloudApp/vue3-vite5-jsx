@@ -23,7 +23,7 @@ export default defineComponent({
             </nav>
           </div>
         </header>
-        <button className="m-auto my-10 h-10 w-fit flex btn">222</button>
+        <button className="m-auto my-10 w-fit flex btn">222</button>
         <RouterView />
       </>
     )
