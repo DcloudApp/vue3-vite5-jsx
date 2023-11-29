@@ -1,5 +1,7 @@
-const antfu = require('@antfu/eslint-config').default
+import antfu from '@antfu/eslint-config'
+import unocss from '@unocss/eslint-plugin'
 
-module.exports = antfu({
-  unocss: true,
-})
+export default antfu(
+  {},
+  unocss.configs.flat,
+)
