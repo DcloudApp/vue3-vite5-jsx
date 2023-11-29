@@ -1,6 +1,7 @@
-import { RouterLink, RouterView } from "vue-router";
-import { defineComponent } from "vue";
-import logo from "@/assets/logo.svg";
+import { RouterLink, RouterView } from 'vue-router'
+import { defineComponent } from 'vue'
+import logo from '@/assets/logo.svg'
+
 export default defineComponent({
   props: {},
   emits: [],
@@ -15,16 +16,16 @@ export default defineComponent({
             width="125"
             height="125"
           />
-          <div className=" py-10">
+          <div className="py-10">
             <nav>
               <RouterLink to="/">Home </RouterLink>
               <RouterLink to="/about"> About</RouterLink>
             </nav>
           </div>
         </header>
-        <button className="btn w-fit h-10 flex m-auto my-10 ">222</button>
+        <button className="m-auto my-10 h-10 w-fit flex btn">222</button>
         <RouterView />
       </>
-    );
+    )
   },
-});
+})
