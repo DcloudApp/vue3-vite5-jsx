@@ -1,10 +1,10 @@
 {
-  "name": "jsxtemplate",
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "dev": "vite --force --mode dev",
+    "test": "vite build --mode test",
+    "build": "vite build --mode production",
     "preview": "vite preview",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
@@ -12,23 +12,28 @@
     "postinstall": "npx simple-git-hooks"
   },
   "dependencies": {
-    "@unocss/reset": "^0.57.7",
+    "axios": "^1.6.2",
     "pinia": "^2.1.7",
+    "unplugin-auto-import": "^0.17.1",
+    "unplugin-vue-components": "^0.25.2",
     "vue": "^3.3.9",
     "vue-router": "^4.2.5"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.1.1",
     "@unocss/eslint-config": "^0.57.7",
+    "@unocss/reset": "^0.57.7",
     "@vitejs/plugin-vue": "^4.5.0",
     "@vitejs/plugin-vue-jsx": "^3.1.0",
     "eslint": "^8.54.0",
     "lint-staged": "^15.1.0",
     "pnpm": "^8.11.0",
+    "rollup-plugin-visualizer": "^5.9.3",
     "simple-git-hooks": "^2.9.0",
     "taze": "^0.12.2",
     "unocss": "^0.57.7",
-    "vite": "^5.0.3"
+    "vite": "^5.0.3",
+    "vite-plugin-remove-console": "^2.1.1"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged"
