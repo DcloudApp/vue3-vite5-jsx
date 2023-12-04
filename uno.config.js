@@ -5,6 +5,7 @@ import {
   presetUno,
   presetWebFonts,
 } from 'unocss'
+import { FileSystemIconLoader } from '@iconify/utils/lib/loader/node-loaders'
 
 export default defineConfig({
   shortcuts: [
@@ -15,8 +16,20 @@ export default defineConfig({
     presetUno(),
     presetAttributify(),
     presetIcons({
+      collections: {
+        custom: FileSystemIconLoader('./src/assets/svg', (svg) => {
+          return svg.replace('white', 'currentColor')
+        }),
+      },
       scale: 1.2,
       warn: true,
+      customizations: {
+        customize(props) {
+          props.width = '2em'
+          props.height = '2em'
+          return props
+        },
+      },
     }),
     presetWebFonts(),
   ],
