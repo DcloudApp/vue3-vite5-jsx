@@ -1,4 +1,4 @@
-import { getLocalUrl } from '@/utils/publicFunc'
+import { required } from '@/utils/index'
 
 export default defineComponent({
   setup() {
@@ -10,7 +10,7 @@ export default defineComponent({
           <img
             alt="Vue logo"
             className="mt-10"
-            src={getLocalUrl('@/assets/logo.svg')}
+            src={required('@/assets/logo.svg')}
             width="125"
             height="125"
           />

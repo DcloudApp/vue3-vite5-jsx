@@ -6,6 +6,6 @@ function resolvePath(path) {
   else return path
 }
 // 动态导入本地资源jsx
-export function getLocalUrl(url) {
+export function required(url) {
   return new URL(`../${resolvePath(url)}`, import.meta.url).href
 }
