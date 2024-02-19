@@ -1,4 +1,4 @@
-import logo from '@/assets/logo.svg'
+import { getLocalUrl } from '@/utils/publicFunc'
 
 export default defineComponent({
   setup() {
@@ -10,7 +10,7 @@ export default defineComponent({
           <img
             alt="Vue logo"
             className="mt-10"
-            src={logo}
+            src={getLocalUrl('@/assets/logo.svg')}
             width="125"
             height="125"
           />
