@@ -4,6 +4,7 @@
     "vue.volar",
     "dbaeumer.vscode-eslint",
     "EditorConfig.EditorConfig",
-    "redjue.git-commit-plugin"
+    "redjue.git-commit-plugin",
+    "streetsidesoftware.code-spell-checker"
   ]
 }
