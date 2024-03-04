@@ -37,5 +37,18 @@
     "json",
     "jsonc",
     "yaml"
+  ],
+  "cSpell.words": [
+    "pinia",
+    "unocss",
+    "iconify",
+    "presetAttributify",
+    "unplugin",
+    "vueuse",
+    "brotliSize",
+    "brotli",
+    "nuxt",
+    "antfu",
+    "taze"
   ]
 }

@@ -67,7 +67,7 @@ export default defineConfig({
         // 开发模式，默认的127.0.0.1,开启后代理服务会把origin修改为目标地址
         changeOrigin: true,
         // secure: true, // 是否https接口
-        // ws: true, // 是否代理websockets
+        // ws: true, // 是否代理websocket
         rewrite: path => path.replace(/^\/api/, ''),
       },
     },
