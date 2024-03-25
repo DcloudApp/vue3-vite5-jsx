@@ -1,3 +1,5 @@
+import request from '@/https/index.js'
+
 /**
  * @desc 上传文件
  * @params image_file[] 文件file
