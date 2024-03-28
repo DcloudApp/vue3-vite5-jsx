@@ -1,10 +1,13 @@
 {
   "recommendations": [
     "antfu.unocss",
-    "vue.volar",
-    "dbaeumer.vscode-eslint",
     "EditorConfig.EditorConfig",
     "redjue.git-commit-plugin",
+    "antfu.iconify",
+    "dbaeumer.vscode-eslint",
+    "vue.volar",
+    "lokalise.i18n-ally",
     "streetsidesoftware.code-spell-checker"
+
   ]
 }

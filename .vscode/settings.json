@@ -50,5 +50,9 @@
     "nuxt",
     "antfu",
     "taze"
-  ]
+  ],
+  "i18n-ally.localesPaths": [
+    "src/locales/modules"
+  ],
+  "i18n-ally.keystyle": "nested"
 }
