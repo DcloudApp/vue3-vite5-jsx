@@ -1,6 +1,4 @@
 <script lang='jsx'>
-import { required } from '@/utils/index'
-
 export default defineComponent({
   setup() {
     const isDark = useDark()
