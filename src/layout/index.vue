@@ -13,7 +13,7 @@ export default defineComponent({
             <img
               alt="Vue logo"
               className="mt-10"
-              src={required('@/assets/logo.svg')}
+              src="../assets/logo.svg"
               width="125"
               height="125"
             />
