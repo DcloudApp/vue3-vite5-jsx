@@ -3,6 +3,8 @@ import { URL, fileURLToPath } from 'node:url'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
+import Pages from 'vite-plugin-pages'
+import Layouts from 'vite-plugin-vue-layouts'
 import UnoCSS from 'unocss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
@@ -16,6 +18,14 @@ export default defineConfig({
     vue(),
     vueJsx(),
     UnoCSS(),
+    Pages({
+      dirs: 'src/pages', // 需要生成路由的文件目录
+      exclude: ['**/components/*.vue'], // 排除在外的目录，即不将所有 components 目录下的 .vue 文件生成路由
+    }),
+    Layouts({
+      layoutsDirs: 'src/layout', // 布局文件存放目录
+      defaultLayout: 'index', // 默认布局，对应 src/layout/index.vue
+    }),
     AutoImport({
       imports: ['vue', 'vue-router', '@vueuse/core', 'vue-i18n'],
       dts: false,

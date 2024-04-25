@@ -1,3 +1,4 @@
+<script lang='jsx'>
 export default defineComponent({
   setup() {
     const { t } = useI18n()
@@ -10,3 +11,14 @@ export default defineComponent({
     )
   },
 })
+</script>
+
+<route lang="json5">
+  {
+    path:'/',
+    name: 'Home',
+    meta: {
+
+    }
+  }
+</route>

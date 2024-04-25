@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import { i18n } from '@/locales/index'
-import App from '@/App.jsx'
+import App from '@/App.vue'
 import router from '@/router'
 
 import '@unocss/reset/tailwind.css'

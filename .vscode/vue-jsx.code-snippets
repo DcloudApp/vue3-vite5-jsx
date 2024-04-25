@@ -1,4 +1,23 @@
 {
+  "vue jsx template": {
+    "prefix": "jsx",
+    "body": [
+      "<script lang='jsx'>",
+      "export default defineComponent({",
+      "  setup() {",
+      "   ",
+      "    return () => (",
+      "      <>",
+      "       ",
+      "      </>",
+      "    )",
+      "  },",
+      "})",
+      "</script>",
+      ""
+    ],
+    "description": "vue jsx template"
+  },
   "vue setup template": {
     "prefix": "jsx",
     "body": [
@@ -16,5 +35,6 @@
       "})"
     ],
     "description": "vue setup template"
-  }
+  },
+
 }
