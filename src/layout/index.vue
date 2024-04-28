@@ -1,4 +1,6 @@
 <script lang='jsx'>
+import logo from '@/assets/logo.svg'
+
 export default defineComponent({
   setup() {
     const isDark = useDark()
@@ -11,7 +13,7 @@ export default defineComponent({
             <img
               alt="Vue logo"
               className="mt-10"
-              src="../assets/logo.svg"
+              src={logo}
               width="125"
               height="125"
             />
