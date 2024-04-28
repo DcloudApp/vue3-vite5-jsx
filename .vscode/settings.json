@@ -49,10 +49,13 @@
     "brotli",
     "nuxt",
     "antfu",
-    "taze"
+    "taze",
+    "intlify"
   ],
+
+  "i18n-ally.keystyle": "nested",
+  "i18n-ally.review.enabled": true,
   "i18n-ally.localesPaths": [
     "src/locales/modules"
-  ],
-  "i18n-ally.keystyle": "nested"
+  ]
 }

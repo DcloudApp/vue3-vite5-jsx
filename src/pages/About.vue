@@ -6,7 +6,7 @@ export default defineComponent({
       <>
         <div className="w-full flex items-center justify-center">
           <h1>{t('title')}</h1>
-          <div>about</div>
+          <div>About</div>
         </div>
       </>
     )
