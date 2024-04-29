@@ -60,6 +60,8 @@ request.interceptors.response.use(
   async (error) => {
     if (!isCancel(error))
       return Promise.reject(error)
+    else
+      return {}
   },
 )
 
