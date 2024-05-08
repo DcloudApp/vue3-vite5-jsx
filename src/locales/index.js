@@ -4,6 +4,8 @@ export const i18n = createI18n({
   legacy: false,
   locale: '',
   messages: {},
+  missingWarn: false, // 消除警告
+  fallbackWarn: false, // 消除警告
 })
 const localesMap = Object.fromEntries(
   Object.entries(import.meta.glob('./modules/*.json'))
