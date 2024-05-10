@@ -24,6 +24,10 @@ function removeCacheRequest(reqKey) {
 request.interceptors.request.use(
   async (config) => {
     // 移除参数中为 null、空字符串、空数组或空对象的字段
+    if (config.headers['Content-Type'] && config.headers['Content-Type'].startsWith('multipart/form-data')) {
+      // 文件上传直接返回config，不做处理
+      return config
+    }
     ['params', 'data'].forEach((key) => {
       if (config[key]) {
         Object.keys(config[key]).forEach((param) => {
