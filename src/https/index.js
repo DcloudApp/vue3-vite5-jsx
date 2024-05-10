@@ -34,8 +34,7 @@ request.interceptors.request.use(
           Object.entries(config[key]).filter(([_, value]) =>
             value !== null && value !== '' && value !== undefined
             && !(Array.isArray(value) && value.length === 0)
-            && !(typeof value === 'object' && Object.keys(value).length === 0)
-            && !(typeof value === 'number' || typeof value === 'boolean'), // 不过滤数值类型和布尔类型的属性
+            && !(typeof value === 'object' && Object.keys(value).length === 0),
           ),
         )
       }
