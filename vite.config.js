@@ -29,7 +29,7 @@ export default defineConfig({
       defaultLayout: 'index', // 默认布局，对应 src/layout/index.vue
     }),
     AutoImport({
-      imports: ['vue', 'vue-router', '@vueuse/core', 'vue-i18n'],
+      imports: ['vue', 'vue-router', '@vueuse/core', 'vue-i18n', 'pinia'],
       dts: false,
     }),
     Components({
