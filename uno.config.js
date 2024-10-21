@@ -17,8 +17,11 @@ export default defineConfig({
     presetAttributify(),
     presetIcons({
       collections: {
-        custom: FileSystemIconLoader('./src/assets/svg', (svg) => {
+        svg: FileSystemIconLoader('./src/assets/svg', (svg) => {
           return svg.replace('white', 'currentColor')
+        }),
+        icon: FileSystemIconLoader('./src/assets/svg', (svg) => {
+          return svg.replace('white', '#ffffff')
         }),
       },
       scale: 1.2,
