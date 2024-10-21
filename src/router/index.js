@@ -2,18 +2,31 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { setupLayouts } from 'virtual:generated-layouts'
 import generatedRoutes from 'virtual:generated-pages'
 
-const routes = generatedRoutes.map(v => v?.meta?.layout !== false ? setupLayouts([v])[0] : v)
+const { BASE_URL, VITE_APP_TITLE } = import.meta.env
+
+const routes = generatedRoutes.map(route => route?.meta?.layout !== false ? setupLayouts([route])[0] : route)
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(BASE_URL),
   routes,
 })
 
-router.beforeEach(async (to, from, next) => {
-  if (localStorage.getItem('appVersion') !== import.meta.env.VITE_APP_VERSION) {
-    localStorage.clear() // 清除所有本地存储
-    localStorage.setItem('appVersion', import.meta.env.VITE_APP_VERSION) // 更新版本号
+// 创建一个函数，用来动态更新 meta 标签
+function updateMetaTag(name, content) {
+  let metaTag = document.querySelector(`meta[name="${name}"]`)
+  if (!metaTag) {
+    metaTag = document.createElement('meta')
+    metaTag.name = name
+    document.head.appendChild(metaTag)
   }
+  metaTag.content = content
+}
+
+router.beforeEach((to, _, next) => {
+  document.title = to.meta.title || VITE_APP_TITLE
+  if (to.meta.metaDescription)
+    updateMetaTag('description', to.meta.metaDescription)
+
   next()
 })
 

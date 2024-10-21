@@ -18,7 +18,8 @@ export default defineComponent({
   {
     name: 'About',
     meta: {
-
+      title: 'About',
+      description: 'About',
     }
   }
 </route>

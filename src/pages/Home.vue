@@ -19,7 +19,8 @@ export default defineComponent({
     path:'/',
     name: 'Home',
     meta: {
-
+      title: 'Home',
+      description: 'Home',
     }
   }
 </route>
