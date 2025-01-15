@@ -30,7 +30,7 @@ export default defineComponent({
               toggleDark()
             }}
           >
-            <span className="i-icon-mic"></span>
+            <span className="i-icon-mic h-14px w-14px"></span>
           </button>
           <HelloWorld />
           <RouterView />
