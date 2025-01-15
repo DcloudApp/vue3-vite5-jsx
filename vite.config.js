@@ -1,16 +1,16 @@
-import { URL, fileURLToPath } from 'node:url'
+import { fileURLToPath, URL } from 'node:url'
 
-import { defineConfig } from 'vite'
+import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
-import Pages from 'vite-plugin-pages'
-import Layouts from 'vite-plugin-vue-layouts'
-import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
+import { visualizer } from 'rollup-plugin-visualizer'
 import UnoCSS from 'unocss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
-import { visualizer } from 'rollup-plugin-visualizer'
+import { defineConfig } from 'vite'
+import Pages from 'vite-plugin-pages'
 import removeConsole from 'vite-plugin-remove-console'
+import Layouts from 'vite-plugin-vue-layouts'
 
 const timesTamp = new Date().getTime()
 // https://vitejs.dev/config/

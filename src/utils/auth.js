@@ -16,4 +16,4 @@ function clearToken() {
   localStorage.removeItem(TOKEN_KEY)
 }
 
-export { isLogin, getToken, setToken, clearToken }
+export { clearToken, getToken, isLogin, setToken }
