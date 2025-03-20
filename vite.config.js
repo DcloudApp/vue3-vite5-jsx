@@ -1,6 +1,5 @@
 import { fileURLToPath, URL } from 'node:url'
 
-import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import { visualizer } from 'rollup-plugin-visualizer'
@@ -19,15 +18,11 @@ export default defineConfig({
     vue(),
     vueJsx(),
     UnoCSS(),
-    VueI18nPlugin({ /* options */ }),
     Pages({
       dirs: 'src/pages', // 需要生成路由的文件目录
       exclude: ['**/components/*.vue'], // 排除在外的目录，即不将所有 components 目录下的 .vue 文件生成路由
     }),
-    Layouts({
-      layoutsDirs: 'src/layout', // 布局文件存放目录
-      defaultLayout: 'index', // 默认布局，对应 src/layout/index.vue
-    }),
+    Layouts(),
     AutoImport({
       imports: ['vue', 'vue-router', '@vueuse/core', 'vue-i18n', 'pinia'],
       dts: false,
