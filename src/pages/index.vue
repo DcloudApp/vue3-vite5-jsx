@@ -23,8 +23,3 @@ function go() {
     </main>
   </div>
 </template>
-
-<route lang="yaml">
-  meta:
-    layout: home
-</route>
