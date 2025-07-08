@@ -1,4 +1,8 @@
 import axios from 'axios'
+import Fingerprint2 from 'fingerprintjs2'
+import Cookies from 'js-cookie'
+import md5 from 'js-md5'
+import useLogin from '@/hooks/useLogin'
 
 const request = axios.create({
   baseURL: import.meta.env.VITE_HTTP,
@@ -21,55 +25,92 @@ function removeCacheRequest(reqKey) {
     delete cacheRequest[reqKey]
   }
 }
+
+async function getDeviceId() {
+  const cachedDeviceId = localStorage.getItem('DeviceId')
+  if (cachedDeviceId)
+    return cachedDeviceId
+
+  const components = await new Promise((resolve) => {
+    Fingerprint2.get(resolve)
+  })
+
+  const values = components.map((component, index) =>
+    index === 0 ? component.value.replace(/\bNetType\/\w+\b/, '') : component.value,
+  )
+
+  const DeviceId = Fingerprint2.x64hash128(values.join(''), 31)
+  const encodedDeviceId = md5(window.btoa(DeviceId + window.location.host))
+  localStorage.setItem('DeviceId', encodedDeviceId)
+  return encodedDeviceId
+}
+
 request.interceptors.request.use(
   async (config) => {
-    // 移除参数中为 null、空字符串、空数组或空对象的字段
-    if (config.headers['Content-Type'] && config.headers['Content-Type'].startsWith('multipart/form-data')) {
-      // 文件上传直接返回config，不做处理
-      return config
+    const { userInfo } = useLogin()
+    const deviceId = await getDeviceId() // 确保 getDeviceId 返回 Promise 的结果
+    config.headers = {
+      ...config.headers,
+      'Version-Code': Cookies.get('Version-Code') || 1,
+      'Device-Type': Cookies.get('Device-Type') || 'web',
+      'Device-Id': Cookies.get('Device-Id') || deviceId || '',
+      'token': Cookies.get('token') || userInfo.value.token || '',
+      'Uid': Cookies.get('Uid') || userInfo.value.guid || '',
     }
-    // ['params', 'data'].forEach((key) => {
-    //   if (config[key]) {
-    //     config[key] = Object.fromEntries(
-    //       Object.entries(config[key]).filter(([_, value]) =>
-    //         value !== null && value !== undefined
-    //         && !(Array.isArray(value) && value.length === 0)
-    //         && !(typeof value === 'object' && Object.keys(value).length === 0),
-    //       ),
-    //     )
-    //   }
-    // })
 
-    const { url, method } = config
-    // 请求地址和请求方式组成唯一标识，将这个标识作为取消函数的key，保存到请求队列中
-    const reqKey = `${url}&${method}`
-    // 如果存在重复请求，删除之前的请求
+    // 重复请求标记
+    const { url, method, data, params } = config
+    const reqKey = `${url}&${method}&${JSON.stringify(params || '')}&${JSON.stringify(data || '')}`
+
     if (!cacheWhiteList.includes(reqKey)) {
       removeCacheRequest(reqKey)
-      // 将请求加入请求队列，通过AbortController来进行手动取消
       const controller = new AbortController()
       config.signal = controller.signal
       cacheRequest[reqKey] = controller
     }
     return config
   },
-  (error) => {
-    return Promise.reject(error)
-  },
+  error => Promise.reject(error),
 )
+
+const errorHandlers = {
+  440: handleUnauthorized,
+  401: handleUnauthorized,
+}
+
+function handleErrorCode(code) {
+  if (errorHandlers[code]) {
+    errorHandlers[code]()
+  }
+}
 
 request.interceptors.response.use(
   (response) => {
     const { url, method } = response.config
     removeCacheRequest(`${url}&${method}`)
+
+    const { code } = response?.data
+    handleErrorCode(code)
     return response.data
   },
   async (error) => {
-    if (!isCancel(error))
-      return Promise.reject(error)
-    else
-      return {}
+    if (isCancel(error)) {
+      return new Promise(() => {}) // 不做任何处理，跳过
+    }
+    if (error.response) {
+      const { code } = error.response?.data
+      handleErrorCode(code)
+    }
+
+    return !isCancel(error) && Promise.reject(error)
   },
 )
+
+function handleUnauthorized() {
+  const { setUserInfo } = useLogin()
+  setUserInfo({})
+  Cookies.remove('token', { path: '/' })
+  window.location.href = '/account/login'
+}
 
 export default request

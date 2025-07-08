@@ -1,16 +1,28 @@
 import { FileSystemIconLoader } from '@iconify/utils/lib/loader/node-loaders'
+import { createLocalFontProcessor } from '@unocss/preset-web-fonts/local'
 import {
   defineConfig,
   presetAttributify,
   presetIcons,
+  presetTypography,
   presetWebFonts,
   presetWind3,
+  transformerDirectives,
+  transformerVariantGroup,
 } from 'unocss'
 
 export default defineConfig({
   shortcuts: [
-    ['btn', 'px-4 py-1 rounded inline-block bg-teal-600 text-white cursor-pointer hover:bg-teal-700 disabled:cursor-default disabled:bg-gray-600 disabled:opacity-50'],
-    ['icon-btn', 'text-[0.9em] inline-block cursor-pointer select-none opacity-75 transition duration-200 ease-in-out hover:opacity-100 hover:text-teal-600 !outline-none'],
+    ['input-reset', 'appearance-none rounded-none border-none outline-none bg-transparent'],
+  ],
+  rules: [
+    ['scrollbar-none', {
+      '-ms-overflow-style': 'none', /* IE 和 Edge */
+      'scrollbar-width': 'none', /* Firefox */
+    }],
+    [/^scrollbar-none$/, () => ({
+      '::-webkit-scrollbar': 'none', /* Chrome, Safari, Opera */
+    })],
   ],
   presets: [
     presetWind3(),
@@ -18,12 +30,21 @@ export default defineConfig({
     presetIcons({
       collections: {
         svg: FileSystemIconLoader('./src/assets/svg'),
-        icon: FileSystemIconLoader('./src/assets/svg', (svg) => {
+        icon: FileSystemIconLoader('./src/assets/icon', (svg) => {
           return svg.replace('#ffffff', 'currentColor')
         }),
       },
-      scale: 1.2,
     }),
-    presetWebFonts(),
+
+    presetTypography(),
+    presetWebFonts({
+      provider: 'fontshare',
+      fonts: {},
+      processors: createLocalFontProcessor(),
+    }),
+  ],
+  transformers: [
+    transformerDirectives(),
+    transformerVariantGroup(),
   ],
 })
