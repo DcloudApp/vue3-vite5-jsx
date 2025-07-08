@@ -36,5 +36,24 @@
     ],
     "description": "vue setup template"
   },
+  "Vue 3 setup template": {
+    "prefix": "setup",
+    "body": [
+      "<script setup>",
+      "",
+      "</script>",
+      "",
+      "<template>",
+      "  <div>",
+      "    ",
+      "  </div>",
+      "</template>",
+      "",
+      "<style scoped>",
+      "",
+      "</style>"
+    ],
+    "description": "Vue 3 script setup + template + style"
+  }
 
 }
