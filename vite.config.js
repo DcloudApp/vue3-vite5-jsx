@@ -1,5 +1,6 @@
 import { fileURLToPath, URL } from 'node:url'
 
+import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import { visualizer } from 'rollup-plugin-visualizer'
@@ -34,6 +35,7 @@ export default defineConfig({
       include: [/\.vue$/, /\.vue\?vue/, /\.jsx$/],
       exclude: [/[\\/]node_modules[\\/]/, /[\\/]\.git[\\/]/, /[\\/]\.nuxt[\\/]/],
     }),
+    VueI18nPlugin({ /* options */ }),
     visualizer({
       open: true, // 注意这里要设置为true，否则无效
       filename: 'stats.html', // 分析图生成的文件名
