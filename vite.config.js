@@ -20,6 +20,7 @@ export default defineConfig({
     Pages({
       dirs: 'src/pages',
       exclude: ['**/components/*.vue'],
+      importMode: 'async',
     }),
     Layouts(),
     AutoImport({
