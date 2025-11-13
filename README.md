@@ -1,3 +1,7 @@
+[English](README.en.md) | 中文
+
+---
+
 # Vue 3 + Vite 5 + JSX 模板
 
 一个开箱即用的前端模板，集成 Vue 3、Vite 5、JSX、UnoCSS、自动路由与布局、Pinia、Vue I18n、Axios 请求封装等常用能力，适合快速搭建中小型 Web 项目。
