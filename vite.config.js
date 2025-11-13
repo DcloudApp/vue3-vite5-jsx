@@ -3,13 +3,11 @@ import { fileURLToPath, URL } from 'node:url'
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
-import { visualizer } from 'rollup-plugin-visualizer'
 import UnoCSS from 'unocss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { defineConfig } from 'vite'
 import Pages from 'vite-plugin-pages'
-import removeConsole from 'vite-plugin-remove-console'
 import Layouts from 'vite-plugin-vue-layouts'
 
 const timesTamp = new Date().getTime()
@@ -20,8 +18,8 @@ export default defineConfig({
     vueJsx(),
     UnoCSS(),
     Pages({
-      dirs: 'src/pages', // 需要生成路由的文件目录
-      exclude: ['**/components/*.vue'], // 排除在外的目录，即不将所有 components 目录下的 .vue 文件生成路由
+      dirs: 'src/pages',
+      exclude: ['**/components/*.vue'],
     }),
     Layouts(),
     AutoImport({
@@ -36,13 +34,6 @@ export default defineConfig({
       exclude: [/[\\/]node_modules[\\/]/, /[\\/]\.git[\\/]/, /[\\/]\.nuxt[\\/]/],
     }),
     VueI18nPlugin({ /* options */ }),
-    visualizer({
-      open: true, // 注意这里要设置为true，否则无效
-      filename: 'stats.html', // 分析图生成的文件名
-      gzipSize: true, // 收集 gzip 大小并将其显示
-      brotliSize: true, // 收集 brotli 大小并将其显示
-    }),
-    removeConsole(),
   ],
   resolve: {
     alias: {
@@ -66,6 +57,9 @@ export default defineConfig({
         },
       },
     },
+  },
+  esbuild: {
+    drop: ['console', 'debugger'],
   },
   server: {
     host: '0.0.0.0',

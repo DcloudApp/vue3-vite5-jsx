@@ -1,4 +1,4 @@
-import Fingerprint2 from 'fingerprintjs2'
+import FingerprintJS from '@fingerprintjs/fingerprintjs'
 import md5 from 'js-md5'
 
 async function getDeviceId() {
@@ -6,18 +6,10 @@ async function getDeviceId() {
   if (cachedDeviceId)
     return cachedDeviceId
 
-  const components = await new Promise((resolve) => {
-    Fingerprint2.get(resolve)
-  })
-
-  const values = components.map((component, index) =>
-    index === 0 ? component.value.replace(/\bNetType\/\w+\b/, '') : component.value,
-  )
-
-  const DeviceId = Fingerprint2.x64hash128(values.join(''), 31)
-  const encodedDeviceId = md5(window.btoa(DeviceId + window.location.host))
+  const fp = await FingerprintJS.load()
+  const { visitorId } = await fp.get()
+  const encodedDeviceId = md5(window.btoa(visitorId + window.location.host))
   localStorage.setItem('DeviceId', encodedDeviceId)
   return encodedDeviceId
 }
-
 export { getDeviceId }

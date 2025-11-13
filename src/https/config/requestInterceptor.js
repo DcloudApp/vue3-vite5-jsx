@@ -1,11 +1,10 @@
 import { getCookies } from './cookieManager'
 // import { encryption } from './encryption'
 import { getReqKey } from './requestCache'
-// requestInterceptor.js
 import request from './requestConfig'
 
 const cacheRequest = {}
-const cacheWhiteList = ['']
+const cacheWhiteList = []
 
 function removeCacheRequest(reqKey) {
   if (cacheRequest[reqKey]) {
@@ -25,6 +24,7 @@ request.interceptors.request.use(
 
     const { url, method, data, params } = config
     const reqKey = getReqKey(url, method, params, data)
+    config.__reqKey = reqKey
 
     if (!cacheWhiteList.includes(reqKey)) {
       removeCacheRequest(reqKey)

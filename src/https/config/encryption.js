@@ -40,8 +40,9 @@ function generateSign(aesData, aesKey, timestamp) {
 
 // 主加密函数
 export function encryption(formData) {
-  const device = Cookies.get('device_type') || 'web'
-  const version = Number.parseInt(Cookies.get('version_code'), 10)
+  const device = Cookies.get('Device-Type') || Cookies.get('device_type') || 'web'
+  const versionStr = Cookies.get('Version-Code') || Cookies.get('version_code') || '0'
+  const version = Number.parseInt(versionStr, 10)
 
   const isSupported = (device === 'ios' && version > 123) || (device === 'android' && version > 10) || device === 'web'
 

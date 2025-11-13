@@ -2,19 +2,22 @@ import { isCancel } from 'axios'
 
 import { handleErrorCode } from './errorHandler'
 import request from './requestConfig'
-// responseInterceptor.js
 import { removeCacheRequest } from './requestInterceptor'
 
 request.interceptors.response.use(
   (response) => {
-    const { url, method } = response.config
-    removeCacheRequest(`${url}&${method}`)
+    const { __reqKey } = response.config
+    if (__reqKey)
+      removeCacheRequest(__reqKey)
 
     const { code } = response?.data
     handleErrorCode(code)
     return response.data
   },
   async (error) => {
+    const reqKey = error?.config?.__reqKey
+    if (reqKey)
+      removeCacheRequest(reqKey)
     if (isCancel(error)) {
       return new Promise(() => {})
     }

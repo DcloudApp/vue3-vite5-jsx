@@ -1,54 +1,73 @@
-// cookieManager.js
 import Cookies from 'js-cookie'
+import useAuth from '@/hooks/useAuth'
 import { getDeviceId } from './device'
 
-let cachedCookies = null
-let cachePromise = null
+const isDev = import.meta.env.MODE === 'dev'
 
-// 静态默认值（不包含需要异步获取的 Device-Id）
-const defaultCookies = {
+// 生产环境默认值
+const PROD_COOKIE_DEFAULTS = {
   'Version-Code': 1,
   'Device-Type': 'web',
-  'token': '40f693e791f56460532a6de19fbb7707',
-  'Uid': '2bc6dmteh5bgpmatabrb8mbeg4',
-  'locales': 'en-US',
+  'language': '',
+  'token': '',
+  'Uid': '',
 }
 
-async function cacheCookies() {
-  if (!cachePromise) {
-    cachePromise = (async () => {
-      const deviceId = Cookies.get('Device-Id') || (await getDeviceId()) || ''
+// 测试环境默认值
+const TEST_COOKIE_DEFAULTS = {
+  ...PROD_COOKIE_DEFAULTS,
+  token: 'cb1c7e89b207afddf431589d03119735',
+  Uid: 'dqv04ognd2iilphu2fmoosbgks',
+}
 
-      cachedCookies = {
-        ...Object.fromEntries(
-          Object.entries(defaultCookies).map(([key, value]) => [
-            key,
-            Cookies.get(key) || value,
-          ]),
-        ),
-        'Device-Id': deviceId,
-      }
+const COOKIE_DEFAULTS = isDev ? TEST_COOKIE_DEFAULTS : PROD_COOKIE_DEFAULTS
 
-      return cachedCookies
-    })()
+// 初始化默认Cookie（如果不存在）
+async function initDefaultCookies() {
+  const deviceId = Cookies.get('Device-Id') || (await getDeviceId()) || ''
+  if (!Cookies.get('Device-Id') && deviceId) {
+    Cookies.set('Device-Id', deviceId, { path: '/' })
   }
-  return cachePromise
+
+  // 设置默认Cookie（仅当它们不存在时）
+  Object.entries(COOKIE_DEFAULTS).forEach(([key, value]) => {
+    if (Cookies.get(key) === undefined) {
+      Cookies.set(key, value, { path: '/' })
+    }
+  })
 }
 
+// 直接从Cookie获取值，不使用缓存
 async function getCookies() {
-  if (!cachedCookies) {
-    await cacheCookies()
+  await initDefaultCookies() // 确保默认Cookie已设置
+
+  const deviceId = Cookies.get('Device-Id') || ''
+  return {
+    ...Object.fromEntries(
+      Object.entries(COOKIE_DEFAULTS).map(([key, value]) => [
+        key,
+        Cookies.get(key) || value,
+      ]),
+    ),
+    'Device-Id': deviceId,
   }
-  return cachedCookies
+}
+
+// 设置Cookie
+function setCookie(name, value, options = {}) {
+  const cookieOptions = { path: '/', ...options }
+  Cookies.set(name, value, cookieOptions)
 }
 
 function clearAllCookies() {
+  const { updateUser } = useAuth()
+  // 清除所有Cookie
   const allCookies = Cookies.get()
   Object.keys(allCookies).forEach((name) => {
     Cookies.remove(name, { path: '/' })
   })
-  cachedCookies = null
-  cachePromise = null
+
+  updateUser(null)
 }
 
-export { clearAllCookies, getCookies }
+export { clearAllCookies, getCookies, initDefaultCookies, setCookie }
