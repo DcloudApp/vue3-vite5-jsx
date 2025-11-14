@@ -1,6 +1,6 @@
 English | [中文](README.md)
 
-# Vue 3 + Vite 5 + JSX Template
+# vitesse+js Template
 
 A ready-to-use front-end template integrating Vue 3, Vite 5, JSX, UnoCSS, automatic routing and layouts, Pinia, Vue I18n, and Axios request utilities. Perfect for quickly bootstrapping small to medium web projects.
 

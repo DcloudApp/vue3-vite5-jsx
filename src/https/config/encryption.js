@@ -7,7 +7,7 @@ const PUBLIC_KEY = import.meta.env.VITE_HTTP_PUBLIC_KEY
 
 // 生成 AES 随机密钥
 function generateRandomStr(length = 16) {
-  const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ0123456789'
+  const chars = [...Array.from({ length: 26 })].map((_, i) => String.fromCharCode(97 + i)).join('') + [...Array.from({ length: 26 })].map((_, i) => String.fromCharCode(65 + i)).join('') + [...Array.from({ length: 10 })].map((_, i) => String.fromCharCode(48 + i)).join('')
   return Array.from({ length }, () => chars[Math.floor(Math.random() * chars.length)]).join('')
 }
 
