@@ -17,7 +17,7 @@ A ready-to-use front-end template integrating Vue 3, Vite 5, JSX, UnoCSS, automa
 
 ## Requirements
 
-- Node.js: `v20.17.0` recommended (see `.nvmrc`)
+- Node.js: minimum `>= 18.0.0`, recommended `>= 18.18.0` (or `>= 20.9.0`)
 - Package manager: `pnpm >= 8`
 
 ## Getting Started
@@ -147,7 +147,7 @@ src/
 
 ## Notes
 
-- Use Node `v20.17.0` to avoid toolchain issues
+- Use Node `>= 18.18.0` (or `>= 20.9.0`) to avoid toolchain issues
 - Configure proxy target and `VITE_HTTP` before back-end integration
 - Provide `VITE_HTTP_PUBLIC_KEY` in production if encryption is enabled
 - In development, default cookies inject sample `token/Uid`; adjust to your back-end protocol
